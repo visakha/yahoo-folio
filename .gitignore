@@ -1,0 +1,37 @@
+# specific
+.idea
+
+
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore specific environment-related files
+.env
+*.env
+*.venv
+env/
+venv/
+ENV/
+
+# Ignore system/OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore log and temporary files
+*.log
+*.tmp
+*.~*
+
+# Ignore all CSV files except 'all.csv'
+*.csv
+!all.csv
+
+# Ignore IDE-specific/JetBrains/PyCharm files
+.idea/
+

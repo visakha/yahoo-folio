@@ -1,0 +1,38 @@
+import os
+import pandas as pd
+
+# Define the folder containing the CSV files
+loc_dir = "resources/yahoo-folio-dwnld"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+folder_path = os.path.join(current_dir, loc_dir)
+# Dictionary to store dataframes, with file names as keys
+dataframes = {}
+
+# List to store each DataFrame for merging
+dataframe_list = []
+
+# Iterate through the files in the folder
+for file_name in os.listdir(folder_path):
+    # Check if the file is a CSV file
+    if file_name.endswith(".csv"):
+        # Get the name of the file without the extension to use as the DataFrame name
+        df_name = os.path.splitext(file_name)[0]
+        stripped_name = df_name.replace("portfolio-", "")
+        # Read the CSV file into a DataFrame
+        file_path = os.path.join(folder_path, file_name)
+        df = pd.read_csv(file_path)
+        df['folio'] = stripped_name
+        # Store the DataFrame in the dictionary
+        dataframes[df_name] = df
+
+        # Add the DataFrame to the list for merging
+        dataframe_list.append(df)
+
+# Merge all DataFrames into a single DataFrame
+# Use ignore_index=True to avoid issues with duplicate indices
+merged_dataframe = pd.concat(dataframe_list, ignore_index=True)
+
+# Write the merged DataFrame to a CSV file called 'all.csv'
+merged_dataframe.to_csv("all.csv", index=False)
+
+print("Merged CSV has been written to 'all.csv'.")
